@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Idle Evolution - Universe</string>
+    <string name="title_home">Home</string>
+    <string name="title_build_elements">Build</string>
+    <string name="title_upgrades">Upgrades</string>
+    <string name="title_scientists">Scientists</string>
+</resources>
