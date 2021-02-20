@@ -1,4 +1,4 @@
-package com.example.idleevolution_universe.ui.buildElements
+package com.example.idleevolution_universe.ui.upgrade_element
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.idleevolution_universe.R
 
-class BuildElementFragment : Fragment() {
+class UpgradesFragment : Fragment() {
 
-    private lateinit var buildElementViewModel: BuildElementViewModel
+    private lateinit var upgradesViewModel: UpgradesViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        buildElementViewModel =
-                ViewModelProvider(this).get(BuildElementViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_build_elements, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        buildElementViewModel.text.observe(viewLifecycleOwner, Observer {
+        upgradesViewModel =
+                ViewModelProvider(this).get(UpgradesViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_upgrades, container, false)
+        val textView: TextView = root.findViewById(R.id.text_notifications)
+        upgradesViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

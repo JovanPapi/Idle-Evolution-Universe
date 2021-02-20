@@ -8,17 +8,17 @@
 
     <item
         android:id="@+id/navigation_build_elements"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_new_element"
         android:title="@string/title_build_elements" />
 
     <item
         android:id="@+id/navigation_upgrades"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_upgrade_element"
         android:title="@string/title_upgrades" />
 
     <item
         android:id="@+id/navigation_scientists"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_scientists"
         android:title="@string/title_scientists" />
 
 </menu>

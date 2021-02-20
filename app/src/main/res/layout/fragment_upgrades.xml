@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.upgradeElements.UpgradesFragment">
+    tools:context=".ui.upgrade_element.UpgradesFragment">
 
     <TextView
         android:id="@+id/text_notifications"

@@ -1,4 +1,4 @@
-package com.example.idleevolution_universe.ui.buildElements
+package com.example.idleevolution_universe.ui.build_element
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

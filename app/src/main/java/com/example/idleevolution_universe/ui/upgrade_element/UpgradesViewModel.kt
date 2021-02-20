@@ -1,4 +1,4 @@
-package com.example.idleevolution_universe.ui.upgradeElements
+package com.example.idleevolution_universe.ui.upgrade_element
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

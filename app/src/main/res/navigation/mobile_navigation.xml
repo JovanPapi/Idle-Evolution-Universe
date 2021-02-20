@@ -12,12 +12,12 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_build_elements"
-        android:name="com.example.idleevolution_universe.ui.buildElements.BuildElementFragment"
+        android:name="com.example.idleevolution_universe.ui.build_element.BuildElementFragment"
         android:label="fragment_build_elements"
         tools:layout="@layout/fragment_build_elements" />
     <fragment
         android:id="@+id/navigation_upgrades"
-        android:name="com.example.idleevolution_universe.ui.upgradeElements.UpgradesFragment"
+        android:name="com.example.idleevolution_universe.ui.upgrade_element.UpgradesFragment"
         android:label="fragment_upgrades"
         tools:layout="@layout/fragment_upgrades" />
 
