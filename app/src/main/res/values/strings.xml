@@ -4,4 +4,5 @@
     <string name="title_build_elements"></string>
     <string name="title_upgrades"></string>
     <string name="title_scientists"></string>
+    <string name="section_image">Section image</string>
 </resources>
