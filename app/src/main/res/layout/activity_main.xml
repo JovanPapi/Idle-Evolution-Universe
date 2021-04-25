@@ -11,7 +11,7 @@
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:defaultNavHost="true"
@@ -40,9 +40,10 @@
 
     <LinearLayout
         android:id="@+id/atomicEnergyLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -57,14 +58,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DJBASODBUA)(HDA"
-            android:layout_marginLeft="16sp"/>
+            android:layout_marginLeft="16sp"
+            android:text="DJBASODBUA)(HDA" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/biologicalEnergyLayout"
-        android:layout_width="393dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/atomicEnergyLayout">
@@ -90,10 +91,9 @@
 
     <LinearLayout
         android:id="@+id/nuclearEnergyLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/biologicalEnergyLayout">
 
@@ -117,9 +117,10 @@
 
     <LinearLayout
         android:id="@+id/universeEnergyLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nuclearEnergyLayout">
 
         <ImageView

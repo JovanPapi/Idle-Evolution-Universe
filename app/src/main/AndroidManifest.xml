@@ -3,7 +3,6 @@
     package="com.example.idleevolution_universe">
 
     <application
-        android:name=".entity_model.DatabaseInstance"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
