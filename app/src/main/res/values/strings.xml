@@ -5,4 +5,6 @@
     <string name="title_upgrades"></string>
     <string name="title_scientists"></string>
     <string name="section_image">Section image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.idleevolution_universe.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,6 @@ class HomeAdapter(private val listener: HomeFragment.OpenSectionListener) :
 
         fun setData(section: Section) {
             sectionButton.text = section.name
-//            sectionButton.setBackgroundResource(section.image)
-            Log.i(section.name, section.visible.toString());
             if (!section.visible) {
                 sectionButton.visibility = View.INVISIBLE
             }
@@ -35,7 +32,7 @@ class HomeAdapter(private val listener: HomeFragment.OpenSectionListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val listItemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.session_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.section_item, parent, false)
         return HomeViewHolder(listItemView)
     }
 

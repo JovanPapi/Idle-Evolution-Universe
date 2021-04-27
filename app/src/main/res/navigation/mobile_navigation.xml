@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.idleevolution_universe.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_showSectionElementsFragment"
+            app:destination="@id/showSectionElementsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_build_elements"
         android:name="com.example.idleevolution_universe.ui.build_element.BuildElementFragment"
@@ -26,5 +30,14 @@
         android:name="com.example.idleevolution_universe.ui.scientists.ScientistsFragment"
         android:label="fragment_scientists"
         tools:layout="@layout/fragment_scientists" />
+    <fragment
+        android:id="@+id/showSectionElementsFragment"
+        android:name="com.example.idleevolution_universe.ui.home.ShowSectionElementsFragment"
+        android:label="fragment_show_section_elements"
+        tools:layout="@layout/fragment_show_section_elements" >
+        <action
+            android:id="@+id/action_showSectionElementsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>

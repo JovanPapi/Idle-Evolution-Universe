@@ -4,25 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
-import com.example.idleevolution_universe.entity_model.Section
 import com.example.idleevolution_universe.entity_model.SectionData
 import com.example.idleevolution_universe.ui.adapter.HomeAdapter
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment() {
 
-    var firebaseDatabase = FirebaseDatabase.getInstance()
-    var sectionDatabase = firebaseDatabase.getReference("sections")
+    val sectionRef = FirebaseDatabase.getInstance().reference.child("sections")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,42 +37,48 @@ class HomeFragment : Fragment() {
         val homeAdapter = HomeAdapter(object : OpenSectionListener {
             override fun openSection(sectionName: String) {
                 //TODO here open the clicked section found by its name
-                Toast.makeText(activity, sectionName, Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("sectionName", sectionName)
+                findNavController().navigate(
+                    R.id.action_navigation_home_to_showSectionElementsFragment,
+                    bundle
+                )
             }
         })
+
 //        homeViewModel.sections.observe(viewLifecycleOwner) { sections ->
 //            sections.let { homeAdapter.submitList(it) }
 //        }
-        sectionDatabase.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val number: Long = 0
-                if (snapshot.childrenCount == number) {
-                    SectionData.sections.forEach { section ->
-                        sectionDatabase.push().setValue(section)
-                    }
-                    return
-                } else {
-                    val sections = mutableListOf<Section>()
-                    for (sectionDB: DataSnapshot in snapshot.children) {
-                        val section: Section? = sectionDB.getValue(Section::class.java)
-                        if (section != null) {
-                            section.dbKey = sectionDB.key.toString()
-                            sections.add(section)
-                        }
-                    }
-                    homeAdapter.submitList(sections)
-                    homeAdapter.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    activity,
-                    "Sorry, there was some problem fetching the data...",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+//        FirebaseDatabase.getInstance().reference.child("sections").removeValue()
+//        sectionRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.hasChildren()) {
+//                    for (sectionDB: DataSnapshot in snapshot.children) {
+//                        val section: Section? = sectionDB.getValue(Section::class.java)
+//                        if (section != null) {
+//                            section.dbKey = sectionDB.key.toString()
+//                            RealTimeSectionData.sections.add(section)
+//                        }
+//                    }
+//                    homeAdapter.submitList(RealTimeSectionData.sections)
+//                    homeAdapter.notifyDataSetChanged()
+//                } else {
+//                    SectionData.sections.forEach { sectionRef.push().setValue(it) }
+//                    homeAdapter.submitList(SectionData.sections)
+//                    homeAdapter.notifyDataSetChanged()
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(
+//                    activity,
+//                    "Sorry, there was some problem fetching the data...",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        })
+        homeAdapter.submitList(SectionData.sections)
+        homeAdapter.notifyDataSetChanged()
         recyclerView.adapter = homeAdapter
 
 
