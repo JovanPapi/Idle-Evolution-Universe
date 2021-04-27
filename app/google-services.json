@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "995684307516",
+    "project_id": "idle-evolution---universe",
+    "storage_bucket": "idle-evolution---universe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995684307516:android:27c8c7aa082fbfe166a939",
+        "android_client_info": {
+          "package_name": "com.example.idleevolution_universe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995684307516-o11ro5c63tcti2u53tfbfe64h232a85q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZoUd1fixRe6GsxwPPCrOvDoIP9_4m3VE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995684307516-o11ro5c63tcti2u53tfbfe64h232a85q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

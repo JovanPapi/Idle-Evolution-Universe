@@ -22,6 +22,8 @@ data class SectionElement(
     val name: String = "",
     /** The description of the section element */
     val description: String = "",
+    /** The image of the element */
+    val image: Int = 0,
     /** How much is doubled, example x1, x2, x15, x300 */
     var productionPow: Int = 0,
     /** The current cost of upgrading the element to produce more energy */
@@ -43,43 +45,53 @@ fun createQuantumElements(): List<SectionElement> {
         SectionElement(
             "String",
             "The string theory assumes that the basic building blocks of matter are strings of magnitude 10-31 meters." +
-                    " The original string theory, called the theory of boson strings, was established in 1970"
+                    " The original string theory, called the theory of boson strings, was established in 1970",
+            R.drawable.string_element
         ),
         SectionElement(
             "Quantum foam",
             "Quantum foam is a concept in quantum mechanics devised by John Wheeler in 1955." +
-                    "The foam is conceptualized as the foundation of the fabric of the Universe"
+                    "The foam is conceptualized as the foundation of the fabric of the Universe",
+            R.drawable.quantum_foam
         ),
         SectionElement(
             "Neutrino",
-            "Neutrino belongs to elementar particles. It's a fermion and its electrically neutral"
+            "Neutrino belongs to elementar particles. It's a fermion and its electrically neutral",
+            R.drawable.neutrino_element
         ),
         SectionElement(
             "Higgs boson",
-            "The Higgs boson is an elementary particle that was discovered during experiments conducted in the Large Hadron Collider in CERN"
+            "The Higgs boson is an elementary particle that was discovered during experiments conducted in the Large Hadron " +
+                    "Collider in CERN",
+            R.drawable.higgs_boson_element
         ),
         SectionElement(
             "Photon",
             "A photon is an elementary particle that does not have an electrical charge." +
-                    " It's also a quanta of electromagnetic field, such as visible light"
+                    " It's also a quanta of electromagnetic field, such as visible light",
+            R.drawable.photon_element
         ),
         SectionElement(
             "Quark",
             "A quark is a type of elementary particle and a fundamental constituent of matter. " +
-                    "Quarks combine to form composite particles like protons and neutrons"
+                    "Quarks combine to form composite particles like protons and neutrons",
+            R.drawable.quark_element
         ),
         SectionElement(
             "Electron",
-            " The electron is a subatomic particle, with a negative elementary electric charge"
+            " The electron is a subatomic particle, with a negative elementary electric charge",
+            R.drawable.electron_element
         ),
         SectionElement(
             "Neutron",
             "The neutron is a subatomic particle, with no net electric charge and a mass slightly" +
-                    "larger than that of a proton. Protons and neutrons constitute the nuclei of atoms"
+                    "larger than that of a proton. Protons and neutrons constitute the nuclei of atoms",
+            R.drawable.neutron_element
         ),
         SectionElement(
             "Proton", "A proton is a subatomic particle, with a positive electric charge and" +
-                    "mass slightly less than that of a neutron. Protons and neutrons are collectively referred to as nucleons"
+                    "mass slightly less than that of a neutron. Protons and neutrons are collectively referred to as nucleons",
+            R.drawable.proton_element
         )
 
     )
