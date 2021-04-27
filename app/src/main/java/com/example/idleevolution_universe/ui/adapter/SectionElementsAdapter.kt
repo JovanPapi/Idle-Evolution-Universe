@@ -25,7 +25,7 @@ class SectionElementsAdapter() :
             elementName.text = "Name: " + sectionElement.name
             elementProductionPow.text = "Updates: x" + sectionElement.productionPow.toString()
             elementProduction.text = "Energy: " + sectionElement.energyProductionPerSecond.toString() + "/s"
-            elementImage.setImageResource(R.drawable.quantum)
+            elementImage.setImageResource(sectionElement.image)
         }
     }
 
