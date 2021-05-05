@@ -15,6 +15,8 @@ import com.example.idleevolution_universe.ui.home.ShowSectionElementsFragment
 
 class SectionElementsAdapter(private val listener: ShowSectionElementsFragment.OpenElementListener) :
     ListAdapter<SectionElement, SectionElementsAdapter.SectionElementsViewHolder>(SectionComparator()) {
+
+    // ViewHolder gets and sets the itemView of each item in the RecyclerView
     inner class SectionElementsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val elementName: TextView = itemView.findViewById(R.id.nameOfElement)
         private val elementProductionPow: TextView =
