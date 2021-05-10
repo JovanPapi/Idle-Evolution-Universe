@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.SectionElement
+import com.example.idleevolution_universe.ui.home.HomeFragment
+import com.example.idleevolution_universe.ui.home.ShowSectionElementsFragment
 
-class SectionElementsAdapter() :
+class SectionElementsAdapter(private val listener: ShowSectionElementsFragment.OpenElementListener) :
     ListAdapter<SectionElement, SectionElementsAdapter.SectionElementsViewHolder>(SectionComparator()) {
     inner class SectionElementsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val elementName: TextView = itemView.findViewById(R.id.nameOfElement)
@@ -24,8 +26,13 @@ class SectionElementsAdapter() :
         fun setData(sectionElement: SectionElement) {
             elementName.text = "Name: " + sectionElement.name
             elementProductionPow.text = "Updates: x" + sectionElement.productionPow.toString()
-            elementProduction.text = "Energy: " + sectionElement.energyProductionPerSecond.toString() + "/s"
+            elementProduction.text =
+                "Energy: " + sectionElement.energyProductionPerSecond.toString() + "/s"
             elementImage.setImageResource(sectionElement.image)
+        }
+
+        fun onElementClick(elementDbKey: String, sectionElement: String) {
+            elementImage.setOnClickListener { listener.openElement(elementDbKey,sectionElement) }
         }
     }
 
@@ -39,6 +46,7 @@ class SectionElementsAdapter() :
     override fun onBindViewHolder(holder: SectionElementsViewHolder, position: Int) {
         val sectionElement = getItem(position)
         holder.setData(sectionElement)
+        holder.onElementClick(sectionElement.dbKey, sectionElement.section)
     }
 
     class SectionComparator : DiffUtil.ItemCallback<SectionElement>() {

@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createQuantumDB() {
+
         val quantumElements: List<SectionElement> = SectionElements.sectionElements[0]
         quantumRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

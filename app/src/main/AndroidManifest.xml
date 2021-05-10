@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IdleEvolutionUniverse">
         <activity
+            android:name=".ui.ElementPopUpActivity"
+            android:theme="@style/Theme.AppCompat.PopUp">
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>

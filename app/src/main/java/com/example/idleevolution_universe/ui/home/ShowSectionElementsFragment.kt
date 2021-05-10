@@ -1,5 +1,6 @@
 package com.example.idleevolution_universe.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.SectionElement
+import com.example.idleevolution_universe.ui.ElementPopUpActivity
 import com.example.idleevolution_universe.ui.adapter.SectionElementsAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -29,13 +31,24 @@ class ShowSectionElementsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_show_section_elements, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sectionDbKey = arguments?.getString("sectionName")?.toLowerCase(Locale.ROOT)
         val sectionRef = FirebaseDatabase.getInstance().reference.child(sectionDbKey!!)
         val btnBack: ImageButton = view.findViewById(R.id.sectionButtonBack)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.sectionElementsRecyclerView)
-        val sectionElementsAdapter = SectionElementsAdapter()
+        val sectionElementsAdapter = SectionElementsAdapter(object : OpenElementListener {
+            override fun openElement(elementDbKey: String, sectionElement: String) {
+                val intent = Intent(activity, ElementPopUpActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString("elementDbKey", elementDbKey)
+                bundle.putString("sectionElement", sectionElement)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+
+        })
         sectionRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.hasChildren()) {
@@ -43,8 +56,8 @@ class ShowSectionElementsFragment : Fragment() {
                     for (item: DataSnapshot in snapshot.children) {
                         val sectionElement: SectionElement? =
                             item.getValue(SectionElement::class.java)
-//                        Log.i("ELEMENT", sectionElement.toString())
                         if (sectionElement != null) {
+                            sectionElement.dbKey = item.key.toString()
                             elements.add(sectionElement)
                         }
                     }
@@ -69,5 +82,9 @@ class ShowSectionElementsFragment : Fragment() {
             findNavController().navigate(R.id.action_showSectionElementsFragment_to_navigation_home)
         }
 
+    }
+
+    interface OpenElementListener {
+        fun openElement(elementDbKey: String, sectionElement: String)
     }
 }
