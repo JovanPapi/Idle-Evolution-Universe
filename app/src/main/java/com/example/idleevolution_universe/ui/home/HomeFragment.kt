@@ -14,8 +14,6 @@ import com.google.firebase.database.FirebaseDatabase
 
 class HomeFragment : Fragment() {
 
-    val sectionRef = FirebaseDatabase.getInstance().reference.child("sections")
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,10 +27,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.homeRecyclerView)
-//        val layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL,true)
-//        layoutManager.orientation = GridLayoutManager.VERTICAL
-
-//        val homeViewModel: HomeViewModel by viewModels()
 
         val homeAdapter = HomeAdapter(object : OpenSectionListener {
             override fun openSection(sectionName: String) {
@@ -46,46 +40,9 @@ class HomeFragment : Fragment() {
             }
         })
 
-//        homeViewModel.sections.observe(viewLifecycleOwner) { sections ->
-//            sections.let { homeAdapter.submitList(it) }
-//        }
-//        FirebaseDatabase.getInstance().reference.child("sections").removeValue()
-//        sectionRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.hasChildren()) {
-//                    for (sectionDB: DataSnapshot in snapshot.children) {
-//                        val section: Section? = sectionDB.getValue(Section::class.java)
-//                        if (section != null) {
-//                            section.dbKey = sectionDB.key.toString()
-//                            RealTimeSectionData.sections.add(section)
-//                        }
-//                    }
-//                    homeAdapter.submitList(RealTimeSectionData.sections)
-//                    homeAdapter.notifyDataSetChanged()
-//                } else {
-//                    SectionData.sections.forEach { sectionRef.push().setValue(it) }
-//                    homeAdapter.submitList(SectionData.sections)
-//                    homeAdapter.notifyDataSetChanged()
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(
-//                    activity,
-//                    "Sorry, there was some problem fetching the data...",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
         homeAdapter.submitList(SectionData.sections)
         homeAdapter.notifyDataSetChanged()
         recyclerView.adapter = homeAdapter
-
-
-//        val textView: TextView = view.findViewById(R.id.text_home)
-//        homeViewModel.text.observe(viewLifecycleOwner, {
-//            textView.text = it
-//        })
     }
 
     interface OpenSectionListener {
