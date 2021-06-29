@@ -1,5 +1,6 @@
 package com.example.idleevolution_universe
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.idleevolution_universe.entity_model.Section
 import com.example.idleevolution_universe.entity_model.SectionElement
 import com.example.idleevolution_universe.entity_model.SectionElements
+import com.example.idleevolution_universe.service.BackgroundMusicService
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         supportActionBar?.hide()
         navView.setupWithNavController(navController)
+
+        val intent = Intent(applicationContext, BackgroundMusicService::class.java)
+        intent.action = "PLAY"
+        startService(intent)
     }
 
     private fun createQuantumDB() {

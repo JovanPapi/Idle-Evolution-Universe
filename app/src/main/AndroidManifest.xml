@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IdleEvolutionUniverse">
+        <service
+            android:name=".service.BackgroundMusicService"
+            android:enabled="true">
+        </service>
+
         <activity
             android:name=".ui.ElementPopUpActivity"
             android:theme="@style/Theme.AppCompat.PopUp">
