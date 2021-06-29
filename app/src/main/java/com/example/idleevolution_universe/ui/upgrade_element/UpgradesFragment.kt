@@ -10,36 +10,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.SectionData
+import com.example.idleevolution_universe.entity_model.SectionElements
 import com.example.idleevolution_universe.ui.adapter.UpgradeElementAdapter
+import com.example.idleevolution_universe.ui.adapter.UpgradeElementHomeAdapter
 
 class UpgradesFragment : Fragment() {
 
-//    private lateinit var upgradesViewModel: UpgradesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
             View? {
 
-        val root = inflater.inflate(R.layout.fragment_upgrades, container, false)
-
-//        upgradesViewModel = ViewModelProvider(this).get(UpgradesViewModel::class.java)
-//        upgradesViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+        val root = inflater.inflate(R.layout.fragment_upgrades_home_view, container, false)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler_view: RecyclerView = view.findViewById(R.id.upgrades_recyclerView)
+        val recycler_view: RecyclerView = view.findViewById(R.id.fragment_upgrades_home_recyclerView)
 
-        val upgrade_element_adapter = UpgradeElementAdapter(context, SectionData.sections)
-        upgrade_element_adapter.notifyDataSetChanged()
-        recycler_view.adapter = upgrade_element_adapter
+        // Take only the visible sections, because the adapter creates button for every section ->
+        // -> even though those sections are hidden. It lists all items.
+        val result_list_section = SectionData.sections.subList(0, 3)
+
+        val upgrade_section_adapter = UpgradeElementHomeAdapter(result_list_section)
+        upgrade_section_adapter.notifyDataSetChanged()
+        recycler_view.adapter = upgrade_section_adapter
     }
 }

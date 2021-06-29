@@ -13,4 +13,11 @@
     <!-- UPGRADES_ELEMENT_VIEW_NAMES-->
     <string name="element_electron">Element Electron</string>
     <string name="element_image">Element image</string>
+
+    <!-- STRING FOR UPGRADE BUTTON NAME-->
+    <string name="Button_1_name">Button 1</string>
+
+    <!-- UPGRADE SECTION NAMES TEMP-->
+    <string name="element_atom">Atom</string>
+    <string name="element_electron">electron</string>
 </resources>
