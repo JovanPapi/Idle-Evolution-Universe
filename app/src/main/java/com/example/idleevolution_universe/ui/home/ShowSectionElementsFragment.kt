@@ -47,7 +47,6 @@ class ShowSectionElementsFragment : Fragment() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
-
         })
         sectionRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
