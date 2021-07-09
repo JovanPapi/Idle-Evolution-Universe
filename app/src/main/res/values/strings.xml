@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Idle Evolution - Universe</string>
-    <string name="element_atom">Element_atom</string>
     <string name="title_home" />
     <string name="title_build_elements" />
     <string name="title_upgrades" />
@@ -11,7 +10,6 @@
 
 
     <!-- UPGRADES_ELEMENT_VIEW_NAMES-->
-    <string name="element_electron">Element Electron</string>
     <string name="element_image">Element image</string>
 
     <!-- STRING FOR UPGRADE BUTTON NAME-->
@@ -19,5 +17,5 @@
 
     <!-- UPGRADE SECTION NAMES TEMP-->
     <string name="element_atom">Atom</string>
-    <string name="element_electron">electron</string>
+    <string name="element_electron">Element Electron</string>
 </resources>

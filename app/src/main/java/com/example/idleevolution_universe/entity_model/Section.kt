@@ -27,14 +27,14 @@ data class SectionElement(
     var image: Int = 0,
     /** The section in which element is in */
     val section: String = "",
-    /** How much is doubled, example x1, x2, x15, x300 */
-    var productionPow: Int = 0,
     /** The current cost of upgrading the element to produce more energy */
     var currentCostUpgrade: Long = 0,
-    /** The total production calculated before upgrading the element */
-    var totalProductionAfterUpgrade: Long = 0,
     /** The total energy production calculated before upgrading the element */
     var energyProductionIncreaseAfterUpgrade: Int = 0,
+    /** The total production calculated before upgrading the element */
+    var totalProductionAfterUpgrade: Long = 0,
+    /** How much is doubled, example x1, x2, x15, x300 */
+    var productionPow: Int = 0,
     /** The current energy production per second */
     var energyProductionPerSecond: Long = 0,
     /** The key of the element in the realtime db */
@@ -52,7 +52,10 @@ fun createQuantumElements(): List<SectionElement> {
             "The string theory assumes that the basic building blocks of matter are strings of magnitude 10-31 meters." +
                     " The original string theory, called the theory of boson strings, was established in 1970",
             R.drawable.element_string,
-            "quantum"
+            "quantum",
+            0,
+            2,
+            2
         ),
         SectionElement(
             "Quantum foam",

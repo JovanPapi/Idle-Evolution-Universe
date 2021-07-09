@@ -23,6 +23,7 @@ class ElementPopUpActivity : AppCompatActivity() {
     private var btnClosePopUp: Button? = null
     private var btnUpgradeElement: Button? = null
     private val sectionRef = FirebaseDatabase.getInstance().reference
+    private lateinit var element: SectionElement
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,22 +58,21 @@ class ElementPopUpActivity : AppCompatActivity() {
         btnClosePopUp = findViewById(R.id.btnClosePopUp)
         btnUpgradeElement = findViewById(R.id.btnUpgradeElement)
 
+
         if (sectionElement != null && elementDbKey != null) {
             sectionRef.child(sectionElement).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChild(elementDbKey)) {
-                        val element =
-                            snapshot.child(elementDbKey).getValue(SectionElement::class.java)
-                        if (element != null) {
-                            imageView?.setImageResource(element.image)
-                            costTv?.text = "Cost: " + element.currentCostUpgrade
-                            descriptionTV?.text = "Description: " + element.description
-                            totalTV?.text = "Total: " + element.totalProductionAfterUpgrade
-                            increaseTV?.text =
-                                "Increase: " + element.energyProductionIncreaseAfterUpgrade
-                            return
+                        element =
+                            snapshot.child(elementDbKey).getValue(SectionElement::class.java)!!
+                        imageView?.setImageResource(element.image)
+                        costTv?.text = "Cost: " + element.currentCostUpgrade
+                        descriptionTV?.text = "Description: " + element.description
+                        totalTV?.text = "Total: " + element.totalProductionAfterUpgrade
+                        increaseTV?.text =
+                            "Increase: " + element.energyProductionIncreaseAfterUpgrade
+                        return
 
-                        }
                     }
                 }
 
@@ -83,7 +83,18 @@ class ElementPopUpActivity : AppCompatActivity() {
         }
         btnClosePopUp?.setOnClickListener { finish() }
 
-        btnUpgradeElement?.setOnClickListener {  }
+        btnUpgradeElement?.setOnClickListener {
+            element.currentCostUpgrade = ((element.currentCostUpgrade + 1) * 1.3).toLong()
+            element.totalProductionAfterUpgrade *= 3
+            element.productionPow++
+
+            sectionRef.child(sectionElement!!).child(elementDbKey!!).child("currentCostUpgrade")
+                .setValue(element.currentCostUpgrade)
+            sectionRef.child(sectionElement).child(elementDbKey)
+                .child("totalProductionAfterUpgrade").setValue(element.totalProductionAfterUpgrade)
+            sectionRef.child(sectionElement).child(elementDbKey).child("productionPow")
+                .setValue(element.productionPow)
+        }
 
     }
 }

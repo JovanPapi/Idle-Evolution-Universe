@@ -110,7 +110,7 @@
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:background="@drawable/buttons_pop_bg"
-            android:text="Update"
+            android:text="Upgrade"
             android:textAlignment="center"
             android:textSize="16sp"
             android:layout_marginLeft="80dp"

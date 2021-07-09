@@ -2,18 +2,16 @@ package com.example.idleevolution_universe
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.idleevolution_universe.entity_model.Section
 import com.example.idleevolution_universe.entity_model.SectionElement
 import com.example.idleevolution_universe.entity_model.SectionElements
 import com.example.idleevolution_universe.service.BackgroundMusicService
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,9 +21,16 @@ class MainActivity : AppCompatActivity() {
     private val quantumRef = FirebaseDatabase.getInstance().reference.child("quantum")
     private val nanoRef = FirebaseDatabase.getInstance().reference.child("nano")
     private val complexRef = FirebaseDatabase.getInstance().reference.child("complex")
+    private val energyProductionRef =
+        FirebaseDatabase.getInstance().reference.child("energyProduction")
     private var btnMusicChange: Button? = null
     private var musicOnOff: Boolean = true
     private var backgroundMusicIntent: Intent? = null
+
+//    private var counter = 0
+//    private var handler = Handler()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,13 +40,14 @@ class MainActivity : AppCompatActivity() {
         createQuantumDB()
         createNanoDB()
         createComplexDB()
+        createEnergyProductionDB()
 
         val navController = findNavController(R.id.nav_host_fragment)
         supportActionBar?.hide()
         navView.setupWithNavController(navController)
 
         backgroundMusicIntent = Intent(applicationContext, BackgroundMusicService::class.java)
-        startService(backgroundMusicIntent)
+//        startService(backgroundMusicIntent)
 
         btnMusicChange?.setOnClickListener {
             if (musicOnOff) {
@@ -54,7 +60,32 @@ class MainActivity : AppCompatActivity() {
                 btnMusicChange?.setBackgroundResource(R.drawable.ic_music_on)
             }
         }
+//        handler.post(object : Runnable {
+//            override fun run() {
+//                counter++
+//                println(counter)
+//                handler.postDelayed(this, 1000)
+//            }
+//        })
+    }
 
+    private fun createEnergyProductionDB() {
+        energyProductionRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!snapshot.exists()) {
+                    energyProductionRef.push().setValue(0)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    applicationContext,
+                    "Sorry, something went wrong when saving the initial data",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
     }
 
     private fun createQuantumDB() {
@@ -120,11 +151,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        stopService(backgroundMusicIntent)
+//        stopService(backgroundMusicIntent)
     }
 
     override fun onResume() {
         super.onResume()
-        startService(backgroundMusicIntent)
+//        startService(backgroundMusicIntent)
+//        startProductionIncrement()
     }
 }
