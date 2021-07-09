@@ -6,11 +6,13 @@ import android.os.Handler
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.idleevolution_universe.entity_model.SectionElement
 import com.example.idleevolution_universe.entity_model.SectionElements
 import com.example.idleevolution_universe.service.BackgroundMusicService
+import com.example.idleevolution_universe.service.EnergyIncreaseService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,10 +27,10 @@ class MainActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference.child("energyProduction")
     private var btnMusicChange: Button? = null
     private var musicOnOff: Boolean = true
-    private var backgroundMusicIntent: Intent? = null
+    private var backgroundMusicService: Intent? = null
+    private var energyIncreaseService: Intent? = null
 
-//    private var counter = 0
-//    private var handler = Handler()
+    private var handler = Handler()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,34 +48,29 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         navView.setupWithNavController(navController)
 
-        backgroundMusicIntent = Intent(applicationContext, BackgroundMusicService::class.java)
-//        startService(backgroundMusicIntent)
+        backgroundMusicService = Intent(applicationContext, BackgroundMusicService::class.java)
+        energyIncreaseService = Intent(applicationContext, EnergyIncreaseService::class.java)
+        startService(energyIncreaseService)
+        startService(backgroundMusicService)
 
         btnMusicChange?.setOnClickListener {
             if (musicOnOff) {
                 musicOnOff = false
-                stopService(backgroundMusicIntent)
+                stopService(backgroundMusicService)
                 btnMusicChange?.setBackgroundResource(R.drawable.ic_music_off)
             } else {
                 musicOnOff = true
-                startService(backgroundMusicIntent)
+                startService(backgroundMusicService)
                 btnMusicChange?.setBackgroundResource(R.drawable.ic_music_on)
             }
         }
-//        handler.post(object : Runnable {
-//            override fun run() {
-//                counter++
-//                println(counter)
-//                handler.postDelayed(this, 1000)
-//            }
-//        })
     }
 
     private fun createEnergyProductionDB() {
         energyProductionRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!snapshot.exists()) {
-                    energyProductionRef.push().setValue(0)
+                    energyProductionRef.setValue(0)
                 }
             }
 
@@ -151,12 +148,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-//        stopService(backgroundMusicIntent)
+        stopService(backgroundMusicService)
+        stopService(energyIncreaseService)
     }
 
     override fun onResume() {
         super.onResume()
-//        startService(backgroundMusicIntent)
-//        startProductionIncrement()
+        if (musicOnOff) {
+            println("meh")
+            startService(backgroundMusicService)
+        }
+        startService(energyIncreaseService)
     }
 }

@@ -3,7 +3,6 @@ package com.example.idleevolution_universe.service
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.IBinder
 import androidx.annotation.Nullable
 import com.example.idleevolution_universe.R

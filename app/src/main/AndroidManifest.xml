@@ -14,6 +14,9 @@
         <service
             android:name=".service.BackgroundMusicService"
             android:enabled="true" />
+        <service
+            android:name=".service.EnergyIncreaseService"
+            android:enabled="true" />
 
         <activity
             android:name=".ui.ElementPopUpActivity"

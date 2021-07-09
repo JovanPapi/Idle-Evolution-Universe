@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.SectionElement
 import com.google.firebase.database.DataSnapshot
@@ -68,9 +69,9 @@ class ElementPopUpActivity : AppCompatActivity() {
                         imageView?.setImageResource(element.image)
                         costTv?.text = "Cost: " + element.currentCostUpgrade
                         descriptionTV?.text = "Description: " + element.description
-                        totalTV?.text = "Total: " + element.totalProductionAfterUpgrade
+                        totalTV?.text = "Total: " + element.totalProductionAfterUpgrade + "/s"
                         increaseTV?.text =
-                            "Increase: " + element.energyProductionIncreaseAfterUpgrade
+                            "Increase: " + element.energyProductionIncreaseAfterUpgrade + "/s"
                         return
 
                     }
@@ -84,8 +85,13 @@ class ElementPopUpActivity : AppCompatActivity() {
         btnClosePopUp?.setOnClickListener { finish() }
 
         btnUpgradeElement?.setOnClickListener {
-            element.currentCostUpgrade = ((element.currentCostUpgrade + 1) * 1.3).toLong()
-            element.totalProductionAfterUpgrade *= 3
+            if (element.currentCostUpgrade == 0) {
+                element.currentCostUpgrade = 18
+            } else {
+                element.currentCostUpgrade += (element.currentCostUpgrade * 0.3).toInt()
+            }
+            element.totalProductionAfterUpgrade += element.energyProductionIncreaseAfterUpgrade
+            element.energyProductionPerSecond += element.energyProductionIncreaseAfterUpgrade
             element.productionPow++
 
             sectionRef.child(sectionElement!!).child(elementDbKey!!).child("currentCostUpgrade")
@@ -94,6 +100,20 @@ class ElementPopUpActivity : AppCompatActivity() {
                 .child("totalProductionAfterUpgrade").setValue(element.totalProductionAfterUpgrade)
             sectionRef.child(sectionElement).child(elementDbKey).child("productionPow")
                 .setValue(element.productionPow)
+            sectionRef.child(sectionElement).child(elementDbKey).child("energyProductionPerSecond")
+                .setValue(element.energyProductionPerSecond)
+
+            sectionRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var energyProduction = Integer.parseInt(snapshot.child("energyProduction").value.toString())
+                    energyProduction += element.energyProductionIncreaseAfterUpgrade
+                    sectionRef.child("energyProduction").setValue(energyProduction)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
     }
