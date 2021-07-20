@@ -17,5 +17,5 @@
 
     <!-- UPGRADE SECTION NAMES TEMP-->
     <string name="element_atom">Atom</string>
-    <string name="element_electron">electron</string>
+    <string name="element_electron">Element Electron</string>
 </resources>

@@ -42,6 +42,18 @@
         <action
             android:id="@+id/action_showSectionElementsFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_showSectionElementsFragment_to_elementPopUpActivity"
+            app:destination="@id/elementPopUpActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/elementPopUpActivity"
+        android:name="com.example.idleevolution_universe.ui.ElementPopupFragment"
+        android:label="activity_element_pop_up"
+        tools:layout="@layout/fragment_element_popup" >
+        <action
+            android:id="@+id/action_elementPopUpActivity_to_showSectionElementsFragment"
+            app:destination="@id/showSectionElementsFragment" />
     </fragment>
     <fragment
         android:id="@+id/showUpgradeSectionElementsFragment"

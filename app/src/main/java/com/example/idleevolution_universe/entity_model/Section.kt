@@ -27,16 +27,16 @@ data class SectionElement(
     var image: Int = 0,
     /** The section in which element is in */
     val section: String = "",
-    /** How much is doubled, example x1, x2, x15, x300 */
-    var productionPow: Int = 0,
     /** The current cost of upgrading the element to produce more energy */
-    var currentCostUpgrade: Long = 0,
-    /** The total production calculated before upgrading the element */
-    var totalProductionAfterUpgrade: Long = 0,
+    var currentCostUpgrade: Int = 0,
     /** The total energy production calculated before upgrading the element */
     var energyProductionIncreaseAfterUpgrade: Int = 0,
+    /** The total production calculated before upgrading the element */
+    var totalProductionAfterUpgrade: Int = 0,
     /** The current energy production per second */
-    var energyProductionPerSecond: Long = 0,
+    var energyProductionPerSecond: Int = 0,
+    /** How much is doubled, example x1, x2, x15, x300 */
+    var productionPow: Int = 0,
     /** The key of the element in the realtime db */
     var dbKey: String = ""
 )
@@ -52,62 +52,89 @@ fun createQuantumElements(): List<SectionElement> {
             "The string theory assumes that the basic building blocks of matter are strings of magnitude 10-31 meters." +
                     " The original string theory, called the theory of boson strings, was established in 1970",
             R.drawable.element_string,
-            "quantum"
+            "quantum",
+            15,
+            4,
+            4
+
         ),
         SectionElement(
             "Quantum foam",
             "Quantum foam is a concept in quantum mechanics devised by John Wheeler in 1955." +
                     "The foam is conceptualized as the foundation of the fabric of the Universe",
             R.drawable.element_quantum_foam,
-            "quantum"
+            "quantum",
+            54,
+            15,
+            15
         ),
         SectionElement(
             "Neutrino",
             "Neutrino belongs to elementar particles. It's a fermion and its electrically neutral",
             R.drawable.element_neutrino,
-            "quantum"
+            "quantum",
+            162,
+            44,
+            44
         ),
         SectionElement(
             "Higgs boson",
             "The Higgs boson is an elementary particle that was discovered during experiments conducted in the Large Hadron " +
                     "Collider in CERN",
             R.drawable.element_higgs_boson,
-            "quantum"
+            "quantum",
+            486,
+            116,
+            116
         ),
         SectionElement(
             "Photon",
             "A photon is an elementary particle that does not have an electrical charge." +
                     " It's also a quanta of electromagnetic field, such as visible light",
             R.drawable.element_photon,
-            "quantum"
+            "quantum",
+            1458,
+            301,
+            301
         ),
         SectionElement(
             "Quark",
             "A quark is a type of elementary particle and a fundamental constituent of matter. " +
                     "Quarks combine to form composite particles like protons and neutrons",
             R.drawable.element_quark,
-            "quantum"
+            "quantum",
+            4374,
+            769,
+            769
         ),
         SectionElement(
             "Electron",
             " The electron is a subatomic particle, with a negative elementary electric charge",
             R.drawable.element_electron,
-            "quantum"
+            "quantum",
+            13122,
+            1947,
+            1947
         ),
         SectionElement(
             "Neutron",
             "The neutron is a subatomic particle, with no net electric charge and a mass slightly" +
                     "larger than that of a proton. Protons and neutrons constitute the nuclei of atoms",
             R.drawable.element_neutron,
-            "quantum"
+            "quantum",
+            39366,
+            4943,
+            4943
         ),
         SectionElement(
             "Proton", "A proton is a subatomic particle, with a positive electric charge and" +
                     "mass slightly less than that of a neutron. Protons and neutrons are collectively referred to as nucleons",
             R.drawable.element_proton,
-            "quantum"
+            "quantum",
+            118098,
+            12604,
+            12604
         )
-
     )
 }
 

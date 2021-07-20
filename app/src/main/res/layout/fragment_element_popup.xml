@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clickable="true"
     android:background="@drawable/pop_bg"
-    tools:context=".ui.ElementPopUpActivity">
+    tools:context=".ui.ElementPopupFragment"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/popUpImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="230dp"
         android:contentDescription="@string/element_image"
         android:scaleType="fitCenter"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/costUpgrade"/>
 
     <LinearLayout
         android:id="@+id/costUpgrade"
@@ -97,24 +96,26 @@
         app:layout_constraintTop_toBottomOf="@id/descriptionLayout">
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:background="@drawable/buttons_pop_bg"
             android:text="Cancel"
             android:textAlignment="center"
             android:textSize="16sp"
             android:id="@+id/btnClosePopUp"
+            android:layout_marginBottom="20dp"
             />
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:background="@drawable/buttons_pop_bg"
-            android:text="Update"
+            android:text="Upgrade"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:layout_marginLeft="80dp"
-            android:id="@+id/btnUpgradeElement"/>
+            android:layout_marginStart="85dp"
+            android:id="@+id/btnUpgradeElement"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 
