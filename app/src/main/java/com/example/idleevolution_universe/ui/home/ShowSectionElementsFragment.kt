@@ -1,20 +1,18 @@
 package com.example.idleevolution_universe.ui.home
 
-import android.content.Intent
+import android.R.attr.fragment
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.SectionElement
-import com.example.idleevolution_universe.ui.ElementPopUpActivity
 import com.example.idleevolution_universe.ui.adapter.SectionElementsAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,12 +38,14 @@ class ShowSectionElementsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.sectionElementsRecyclerView)
         val sectionElementsAdapter = SectionElementsAdapter(object : OpenElementListener {
             override fun openElement(elementDbKey: String, sectionElement: String) {
-                val intent = Intent(activity, ElementPopUpActivity::class.java)
+//                val intent = Intent(activity, ElementPopUpActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString("elementDbKey", elementDbKey)
                 bundle.putString("sectionElement", sectionElement)
-                intent.putExtras(bundle)
-                startActivity(intent)
+                bundle.putString("sectionName", sectionDbKey)
+                findNavController().navigate(R.id.action_showSectionElementsFragment_to_elementPopUpActivity, bundle)
+//                intent.putExtras(bundle)
+//                startActivity(intent)
             }
         })
         sectionRef.addValueEventListener(object : ValueEventListener {

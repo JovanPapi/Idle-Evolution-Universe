@@ -4,7 +4,13 @@ import android.app.Service
 import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
+import android.widget.TextView
+import android.widget.Toast
+import com.example.idleevolution_universe.MainActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.util.*
 
 class EnergyIncreaseService : Service() {
@@ -33,7 +39,11 @@ class EnergyIncreaseService : Service() {
 
     inner class TimeDisplay : TimerTask() {
         override fun run() {
-            energyHandler.post { println("ez") }
+            energyHandler.post {
+                var tempEnergy = Integer.parseInt(MainActivity.tvUserCurrentEnergy?.text.toString())
+                tempEnergy += MainActivity.userCurrentEnergyProduction
+                MainActivity.tvUserCurrentEnergy?.text = tempEnergy.toString()
+            }
         }
     }
 }

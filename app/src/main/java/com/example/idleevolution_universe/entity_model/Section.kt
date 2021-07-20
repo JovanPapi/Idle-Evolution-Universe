@@ -53,7 +53,7 @@ fun createQuantumElements(): List<SectionElement> {
                     " The original string theory, called the theory of boson strings, was established in 1970",
             R.drawable.element_string,
             "quantum",
-            0,
+            15,
             4,
             4
 

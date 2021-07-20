@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -25,19 +26,24 @@ class MainActivity : AppCompatActivity() {
     private val complexRef = FirebaseDatabase.getInstance().reference.child("complex")
     private val energyProductionRef =
         FirebaseDatabase.getInstance().reference.child("energyProduction")
+    private val userTotalEnergyRef =
+        FirebaseDatabase.getInstance().reference.child("userTotalEnergy")
     private var btnMusicChange: Button? = null
     private var musicOnOff: Boolean = true
-    private var backgroundMusicService: Intent? = null
-    private var energyIncreaseService: Intent? = null
+    private var backgroundMusicService = Intent()
+    private var energyIncreaseService = Intent()
 
-    private var handler = Handler()
-
+    companion object {
+        var userCurrentEnergyProduction: Int = 0
+        var tvUserCurrentEnergy: TextView? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         btnMusicChange = findViewById(R.id.btnMusic)
+        tvUserCurrentEnergy = findViewById(R.id.tvUserTotalEnergy)
 
         createQuantumDB()
         createNanoDB()
@@ -49,9 +55,10 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         backgroundMusicService = Intent(applicationContext, BackgroundMusicService::class.java)
+        startService(backgroundMusicService)
         energyIncreaseService = Intent(applicationContext, EnergyIncreaseService::class.java)
         startService(energyIncreaseService)
-        startService(backgroundMusicService)
+
 
         btnMusicChange?.setOnClickListener {
             if (musicOnOff) {
@@ -71,6 +78,8 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!snapshot.exists()) {
                     energyProductionRef.setValue(0)
+                } else {
+                    userCurrentEnergyProduction = Integer.parseInt(snapshot.value.toString())
                 }
             }
 
@@ -81,12 +90,27 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        })
+        userTotalEnergyRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!snapshot.exists()) {
+                    userTotalEnergyRef.setValue(15)
+                } else {
+                    tvUserCurrentEnergy?.text = snapshot.value.toString()
+                }
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    applicationContext,
+                    "Sorry, something went wrong when saving the initial data",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         })
     }
 
     private fun createQuantumDB() {
-
         val quantumElements: List<SectionElement> = SectionElements.sectionElements[0]
         quantumRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -148,6 +172,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        val totalEnergyProduced = Integer.parseInt(tvUserCurrentEnergy?.text.toString())
+        userTotalEnergyRef.setValue(totalEnergyProduced)
         stopService(backgroundMusicService)
         stopService(energyIncreaseService)
     }
@@ -155,9 +181,16 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (musicOnOff) {
-            println("meh")
             startService(backgroundMusicService)
         }
         startService(energyIncreaseService)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val totalEnergyProduced = Integer.parseInt(tvUserCurrentEnergy?.text.toString())
+        userTotalEnergyRef.setValue(totalEnergyProduced)
+        stopService(backgroundMusicService)
+        stopService(energyIncreaseService)
     }
 }

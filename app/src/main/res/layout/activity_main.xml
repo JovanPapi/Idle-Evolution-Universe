@@ -28,7 +28,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
@@ -43,11 +43,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/ic_music_on"
-        app:layout_constraintBottom_toTopOf="@+id/atomicEnergyLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginEnd="20dp"/>
 
     <LinearLayout
         android:id="@+id/atomicEnergyLayout"
@@ -67,9 +65,11 @@
             app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
+            android:id="@+id/tvUserTotalEnergy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
+            android:textSize="20sp"
             android:text="0"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -96,7 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            android:text=""
+            android:textSize="20sp"
+            android:text="0"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -124,7 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            android:text=""
+            android:textSize="20sp"
+            android:text="0"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -151,7 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
-            android:text=""
+            android:textSize="20sp"
+            android:text="0"
             android:textColor="@color/white" />
     </LinearLayout>
 
