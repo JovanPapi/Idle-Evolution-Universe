@@ -23,7 +23,11 @@
         android:id="@+id/navigation_upgrades"
         android:name="com.example.idleevolution_universe.ui.upgrade_element.UpgradesFragment"
         android:label="fragment_upgrades"
-        tools:layout="@layout/fragment_upgrades" />
+        tools:layout="@layout/fragment_upgrades" >
+        <action
+            android:id="@+id/action_navigation_upgrades_to_showUpgradeSectionElementsFragment"
+            app:destination="@id/showUpgradeSectionElementsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_scientists"
@@ -39,5 +43,10 @@
             android:id="@+id/action_showSectionElementsFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/showUpgradeSectionElementsFragment"
+        android:name="com.example.idleevolution_universe.ui.upgrade_element.ShowUpgradeSectionElementsFragment"
+        android:label="fragment_upgrades"
+        tools:layout="@layout/fragment_upgrades" />
 
 </navigation>

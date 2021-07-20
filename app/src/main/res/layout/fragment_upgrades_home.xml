@@ -16,7 +16,10 @@
         android:layout_height="99dp"
         android:layout_centerInParent="true"
         android:background="@drawable/custom_button_shape"
-        android:text="@string/Button_1_name" />
+        android:textColor="@color/white"
+        android:text="@string/Button_1_name"
+        >
+    </Button>
 
 
 </RelativeLayout>
