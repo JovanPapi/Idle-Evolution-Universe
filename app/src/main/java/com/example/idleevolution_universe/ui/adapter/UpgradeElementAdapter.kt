@@ -1,6 +1,5 @@
 package com.example.idleevolution_universe.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.Section
 import com.example.idleevolution_universe.entity_model.SectionElement
 
-class UpgradeElementAdapter(val context: Context?, private val elements: MutableList<Section>): RecyclerView.Adapter<UpgradeElementAdapter.UpgradeElementViewHolder>(){
+class UpgradeElementAdapter(private val section_elements: MutableList<SectionElement>): RecyclerView.Adapter<UpgradeElementAdapter.UpgradeElementViewHolder>(){
 
     inner class UpgradeElementViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
@@ -22,25 +21,25 @@ class UpgradeElementAdapter(val context: Context?, private val elements: Mutable
 
         private val counter = 0
 
-        fun setData(element: Section){
-            element_name_required.text = element.name + ": " + counter
-            element_image_required.setImageResource(element.image)
-            element_name_upgrade.text = element.name + ": x5 income"
-            element_image_upgrade.setImageResource(element.image)
+        fun setData(element: SectionElement) {
+                element_name_required.text = element.name + ": " + counter
+                element_image_required.setImageResource(element.image)
+                element_name_upgrade.text = element.name + ": x5 income"
+                element_image_upgrade.setImageResource(element.image)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpgradeElementViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.upgrades_item_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.upgrades_item_view, parent, false)
         return UpgradeElementViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: UpgradeElementViewHolder, position: Int) {
-        val element = this.elements[position]
+        val element = this.section_elements[position]
         holder.setData(element)
     }
 
     override fun getItemCount(): Int {
-        return this.elements.size
+        return this.section_elements.size
     }
 }
