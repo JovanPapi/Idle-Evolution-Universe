@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +16,7 @@ import com.example.idleevolution_universe.ui.upgrade_element.ShowUpgradeSectionE
 
 // If we use 'ListAdapter<>()' instead of 'RecyclerView.Adapter<>()' we can pass the list with "submitList()" ->
 // -> without the need to have parameter in the class
-class UpgradeElementAdapter(private val event_listener: ShowUpgradeSectionElementsFragment.ElementClickedListenerInterface) :
+class UpgradeElementAdapter(private val event_listener : ShowUpgradeSectionElementsFragment.ElementClickedListenerInterface) :
     ListAdapter<SectionElement, UpgradeElementAdapter.UpgradeElementViewHolder>(ElementsComparator()){
 
     inner class UpgradeElementViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -24,18 +25,18 @@ class UpgradeElementAdapter(private val event_listener: ShowUpgradeSectionElemen
         private val element_image_required: ImageView = itemView.findViewById(R.id.element_image_required_for_upgrade)
         private val element_name_upgrade: TextView = itemView.findViewById(R.id.element_name_for_upgrade)
         private val element_image_upgrade: ImageView = itemView.findViewById(R.id.element_image_for_upgrade)
+        private val upgrade_element_image_layout : LinearLayout = itemView.findViewById(R.id.second_element_view)
 
-        private val counter = 0
 
         fun setData(element: SectionElement) {
-                element_name_required.text = element.name + ": " + counter
+                element_name_required.text = element.name + ": x5"
                 element_image_required.setImageResource(element.image)
-                element_name_upgrade.text = element.name + ": x5 income"
+                element_name_upgrade.text = element.name + "\n" + element.requiredElementQuantity
                 element_image_upgrade.setImageResource(element.image)
         }
 
-        fun checkIfElementIsClicked(element_dbKey: String, element_section: String){
-            element_image_required.setOnClickListener { event_listener.openClickedElement(element_dbKey, element_section) }
+        fun checkIfElementIsClicked(currentElement: SectionElement){
+            upgrade_element_image_layout.setOnClickListener { event_listener.openClickedElement(currentElement) }
         }
     }
 
@@ -47,7 +48,7 @@ class UpgradeElementAdapter(private val event_listener: ShowUpgradeSectionElemen
     override fun onBindViewHolder(holder: UpgradeElementViewHolder, position: Int) {
         val element = getItem(position)
         holder.setData(element)
-        holder.checkIfElementIsClicked(element.dbKey, element.section)
+        holder.checkIfElementIsClicked(element)
     }
 
 // Don't need this fun with ListAdapter

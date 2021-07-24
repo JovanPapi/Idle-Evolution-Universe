@@ -28,16 +28,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="05dp"
                 android:layout_weight="1"
-                android:text="Requirements: "
+                android:text="Bonus(Income) "
                 android:textAlignment="center"
                 android:textSize="17sp" />
 
             <ImageView
                 android:id="@+id/element_image_required_for_upgrade"
-                android:layout_width="wrap_content"
-                android:layout_height="105dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/element_atom"
+                android:layout_marginStart="50dp"
+                android:layout_marginBottom="30dp"
+                android:contentDescription="@string/temp_string"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/element_electron" />
 
@@ -46,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_weight="1"
-                android:text="@string/element_electron"
+                android:text="@string/income_string"
                 android:textAlignment="center"
                 android:textSize="17sp" />
 
@@ -63,16 +65,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Upgrade: "
+                android:text="Requirements: "
                 android:textAlignment="center"
                 android:textSize="17sp" />
 
             <ImageView
                 android:id="@+id/element_image_for_upgrade"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/element_atom"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="40dp"
+                android:contentDescription="@string/temp_string"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/element_atom" />
 
@@ -85,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/element_electron"
+                    android:text="@string/temp_string"
                     android:textAlignment="center"
                     android:textSize="17sp" />
             </LinearLayout>

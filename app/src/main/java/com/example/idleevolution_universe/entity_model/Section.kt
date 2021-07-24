@@ -33,6 +33,10 @@ data class SectionElement(
     var energyProductionIncreaseAfterUpgrade: Int = 0,
     /** The total production calculated before upgrading the element */
     var totalProductionAfterUpgrade: Int = 0,
+    /** Element quantity required for upgrade*/
+    var requiredElementQuantity: Int = 0,
+    /** Check if element is upgraded*/
+    var checkIfElementIsUpgraded: Boolean? = null,
     /** The current energy production per second */
     var energyProductionPerSecond: Int = 0,
     /** How much is doubled, example x1, x2, x15, x300 */
@@ -55,8 +59,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             15,
             4,
-            4
-
+            4,
+            100,
+            false
         ),
         SectionElement(
             "Quantum foam",
@@ -66,7 +71,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             54,
             15,
-            15
+            15,
+            180,
+            false
         ),
         SectionElement(
             "Neutrino",
@@ -75,7 +82,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             162,
             44,
-            44
+            44,
+            220,
+            false
         ),
         SectionElement(
             "Higgs boson",
@@ -85,7 +94,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             486,
             116,
-            116
+            116,
+            680,
+            false
         ),
         SectionElement(
             "Photon",
@@ -95,7 +106,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             1458,
             301,
-            301
+            301,
+            1070,
+            false
         ),
         SectionElement(
             "Quark",
@@ -105,7 +118,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             4374,
             769,
-            769
+            769,
+            3400,
+            false
         ),
         SectionElement(
             "Electron",
@@ -114,7 +129,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             13122,
             1947,
-            1947
+            1947,
+            2250,
+            false
         ),
         SectionElement(
             "Neutron",
@@ -124,7 +141,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             39366,
             4943,
-            4943
+            4943,
+            7130,
+            false
         ),
         SectionElement(
             "Proton", "A proton is a subatomic particle, with a positive electric charge and" +
@@ -133,7 +152,9 @@ fun createQuantumElements(): List<SectionElement> {
             "quantum",
             118098,
             12604,
-            12604
+            12604,
+            5470,
+            false
         )
     )
 }

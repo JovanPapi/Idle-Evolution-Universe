@@ -16,6 +16,6 @@
     <string name="Button_1_name">Button 1</string>
 
     <!-- UPGRADE SECTION NAMES TEMP-->
-    <string name="element_atom">Atom</string>
-    <string name="element_electron">Element Electron</string>
+    <string name="temp_string">Atom</string>
+    <string name="income_string">Income: x5</string>
 </resources>

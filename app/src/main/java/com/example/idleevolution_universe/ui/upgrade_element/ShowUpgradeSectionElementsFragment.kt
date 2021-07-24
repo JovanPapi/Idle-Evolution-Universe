@@ -1,9 +1,11 @@
 package com.example.idleevolution_universe.ui.upgrade_element
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -21,7 +23,7 @@ import com.google.firebase.database.ValueEventListener
 
 class ShowUpgradeSectionElementsFragment : Fragment() {
 
-
+    private val requirement_element_quantity : TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -37,13 +39,13 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
         val sectionRef = FirebaseDatabase.getInstance().reference.child(btn_clicked!!)
 
         val recycler_view : RecyclerView = view.findViewById(R.id.upgrades_recyclerView)
-        // Pass anonymous object of type 'ElementClicked' interface with overridden function
+        // Pass anonymous object of type 'ElementClicked' interface with overridden function ()
         val upgrade_section_elements_adapter = UpgradeElementAdapter(object: ElementClickedListenerInterface{
-            override fun openClickedElement(element_dbKey: String, element_section: String) {
-                val bundle = Bundle()
-                bundle.putString("element_dbKey", element_dbKey)
-                bundle.putString("element_section", element_section)
-                findNavController().navigate(R.id.action_showUpgradeSectionElementsFragment_to_upgradeElementPopUpFragment, bundle)
+            override fun openClickedElement(curr_element: SectionElement) {
+                curr_element.checkIfElementIsUpgraded = true
+                sectionRef.child(curr_element.dbKey).setValue(curr_element)
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! UNFINISHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                Toast.makeText(context, "Element Upgraded Successfully", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -54,7 +56,8 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
                 if(snapshot.hasChildren()){
                     for (item : DataSnapshot in snapshot.children){
                         val currElement : SectionElement? = item.getValue(SectionElement::class.java)
-                        if (currElement != null){
+                        // NEED TO REARANGE THE DATABASE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! UNFINISHED!!!!!!!!!!!!!!
+                        if (currElement != null && currElement.checkIfElementIsUpgraded == false){
                             currElement.dbKey = item.key.toString()
                             allElements.add(currElement)
                         }
@@ -71,9 +74,10 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
         })
 
         recycler_view.adapter = upgrade_section_elements_adapter
+
     }
 
     interface ElementClickedListenerInterface{
-        fun openClickedElement(element_dbKey: String, element_section: String)
+        fun openClickedElement(curr_element : SectionElement)
     }
 }
