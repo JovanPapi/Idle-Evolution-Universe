@@ -59,6 +59,19 @@
         android:id="@+id/showUpgradeSectionElementsFragment"
         android:name="com.example.idleevolution_universe.ui.upgrade_element.ShowUpgradeSectionElementsFragment"
         android:label="fragment_upgrades"
-        tools:layout="@layout/fragment_upgrades" />
+        tools:layout="@layout/fragment_upgrades" >
+        <action
+            android:id="@+id/action_showUpgradeSectionElementsFragment_to_upgradeElementPopUpFragment"
+            app:destination="@id/upgradeElementPopUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/upgradeElementPopUpFragment"
+        android:name="com.example.idleevolution_universe.ui.ElementPopUpWindow.UpgradeElementPopUpFragment"
+        android:label="fragment_upgrades_element_pop_up"
+        tools:layout="@layout/fragment_upgrades_element_pop_up" >
+        <action
+            android:id="@+id/action_upgradeElementPopUpFragment_to_showUpgradeSectionElementsFragment"
+            app:destination="@id/showUpgradeSectionElementsFragment" />
+    </fragment>
 
 </navigation>

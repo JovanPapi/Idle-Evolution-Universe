@@ -38,14 +38,11 @@ class ShowSectionElementsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.sectionElementsRecyclerView)
         val sectionElementsAdapter = SectionElementsAdapter(object : OpenElementListener {
             override fun openElement(elementDbKey: String, sectionElement: String) {
-//                val intent = Intent(activity, ElementPopUpActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString("elementDbKey", elementDbKey)
                 bundle.putString("sectionElement", sectionElement)
                 bundle.putString("sectionName", sectionDbKey)
                 findNavController().navigate(R.id.action_showSectionElementsFragment_to_elementPopUpActivity, bundle)
-//                intent.putExtras(bundle)
-//                startActivity(intent)
             }
         })
         sectionRef.addValueEventListener(object : ValueEventListener {

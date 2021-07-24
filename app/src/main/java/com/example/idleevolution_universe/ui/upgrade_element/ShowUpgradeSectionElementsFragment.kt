@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
 import com.example.idleevolution_universe.entity_model.Section
@@ -36,6 +37,15 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
         val sectionRef = FirebaseDatabase.getInstance().reference.child(btn_clicked!!)
 
         val recycler_view : RecyclerView = view.findViewById(R.id.upgrades_recyclerView)
+        // Pass anonymous object of type 'ElementClicked' interface with overridden function
+        val upgrade_section_elements_adapter = UpgradeElementAdapter(object: ElementClickedListenerInterface{
+            override fun openClickedElement(element_dbKey: String, element_section: String) {
+                val bundle = Bundle()
+                bundle.putString("element_dbKey", element_dbKey)
+                bundle.putString("element_section", element_section)
+                findNavController().navigate(R.id.action_showUpgradeSectionElementsFragment_to_upgradeElementPopUpFragment, bundle)
+            }
+        })
 
         // Access the database and list the elements from selected section each time we open this fragment
         val allElements = mutableListOf<SectionElement>()
@@ -49,10 +59,8 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
                             allElements.add(currElement)
                         }
                     }
-                    Toast.makeText(context, allElements.size.toString(), Toast.LENGTH_SHORT).show()
-                    val upgrade_section_elements_adapter = UpgradeElementAdapter(allElements)
+                    upgrade_section_elements_adapter.submitList(allElements)
                     upgrade_section_elements_adapter.notifyDataSetChanged()
-                    recycler_view.adapter = upgrade_section_elements_adapter
                 }
             }
 
@@ -61,5 +69,11 @@ class ShowUpgradeSectionElementsFragment : Fragment() {
             }
 
         })
+
+        recycler_view.adapter = upgrade_section_elements_adapter
+    }
+
+    interface ElementClickedListenerInterface{
+        fun openClickedElement(element_dbKey: String, element_section: String)
     }
 }
