@@ -80,11 +80,9 @@ class ElementPopupFragment : Fragment() {
                 bundle
             )
         }
-
-        val currentEnergyAmount =
-            Integer.parseInt(MainActivity.tvUserCurrentEnergy?.text.toString())
-
         btnUpgradeElement?.setOnClickListener {
+            val currentEnergyAmount =
+                Integer.parseInt(MainActivity.tvUserCurrentEnergy?.text.toString())
             if (currentEnergyAmount < element.currentCostUpgrade) {
                 Toast.makeText(context, "Not enough energy!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

@@ -15,11 +15,6 @@
             app:destination="@id/showSectionElementsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_build_elements"
-        android:name="com.example.idleevolution_universe.ui.build_element.BuildElementFragment"
-        android:label="fragment_build_elements"
-        tools:layout="@layout/fragment_build_elements" />
-    <fragment
         android:id="@+id/navigation_upgrades"
         android:name="com.example.idleevolution_universe.ui.upgrade_element.UpgradesFragment"
         android:label="fragment_upgrades"
@@ -61,17 +56,8 @@
         android:label="fragment_upgrades"
         tools:layout="@layout/fragment_upgrades" >
         <action
-            android:id="@+id/action_showUpgradeSectionElementsFragment_to_upgradeElementPopUpFragment"
-            app:destination="@id/upgradeElementPopUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/upgradeElementPopUpFragment"
-        android:name="com.example.idleevolution_universe.ui.ElementPopUpWindow.UpgradeElementPopUpFragment"
-        android:label="fragment_upgrades_element_pop_up"
-        tools:layout="@layout/fragment_upgrades_element_pop_up" >
-        <action
-            android:id="@+id/action_upgradeElementPopUpFragment_to_showUpgradeSectionElementsFragment"
-            app:destination="@id/showUpgradeSectionElementsFragment" />
+            android:id="@+id/action_showUpgradeSectionElementsFragment_to_navigation_upgrades"
+            app:destination="@id/navigation_upgrades" />
     </fragment>
 
 </navigation>

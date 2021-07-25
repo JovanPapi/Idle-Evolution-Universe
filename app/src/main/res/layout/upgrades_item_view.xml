@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,9 +35,9 @@
                 android:id="@+id/element_image_required_for_upgrade"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_weight="1"
                 android:layout_marginStart="50dp"
                 android:layout_marginBottom="30dp"
+                android:layout_weight="1"
                 android:contentDescription="@string/temp_string"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/element_electron" />
@@ -73,9 +72,9 @@
                 android:id="@+id/element_image_for_upgrade"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="40dp"
+                android:layout_weight="1"
                 android:contentDescription="@string/temp_string"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/element_atom" />
@@ -93,8 +92,6 @@
                     android:textAlignment="center"
                     android:textSize="17sp" />
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
