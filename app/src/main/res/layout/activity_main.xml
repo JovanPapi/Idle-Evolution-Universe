@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:textSize="20sp"
-            android:text="0"
+            android:text="Comming soon..."
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:textSize="20sp"
-            android:text="0"
+            android:text="Comming soon..."
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:textSize="20sp"
-            android:text="0"
+            android:text="Comming soon..."
             android:textColor="@color/white" />
     </LinearLayout>
 

@@ -10,34 +10,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
-import com.example.idleevolution_universe.entity_model.Section
 import com.example.idleevolution_universe.entity_model.SectionElement
-import com.example.idleevolution_universe.ui.upgrade_element.ShowUpgradeSectionElementsFragment
+import com.example.idleevolution_universe.ui.upgrade_element.UpgradesFragment
 
 // If we use 'ListAdapter<>()' instead of 'RecyclerView.Adapter<>()' we can pass the list with "submitList()" ->
 // -> without the need to have parameter in the class
-class UpgradeElementAdapter(private val event_listener: ShowUpgradeSectionElementsFragment.ElementClickedListenerInterface) :
+class UpgradeElementAdapter(private val event_listener: UpgradesFragment.ElementClickedListenerInterface) :
     ListAdapter<SectionElement, UpgradeElementAdapter.UpgradeElementViewHolder>(ElementsComparator()) {
 
     inner class UpgradeElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val element_name_required: TextView =
-            itemView.findViewById(R.id.element_name_required_for_upgrade)
-        private val element_image_required: ImageView =
-            itemView.findViewById(R.id.element_image_required_for_upgrade)
-        private val element_name_upgrade: TextView =
-            itemView.findViewById(R.id.element_name_for_upgrade)
-        private val element_image_upgrade: ImageView =
-            itemView.findViewById(R.id.element_image_for_upgrade)
+        private val elementNameUpgrade: TextView =
+            itemView.findViewById(R.id.elementNameUpgrade)
+        private val elementImageUpgrade: ImageView =
+            itemView.findViewById(R.id.elementImageUpgrade)
         private val upgrade_element_image_layout: LinearLayout =
             itemView.findViewById(R.id.elements_view)
 
 
         fun setData(element: SectionElement) {
-            element_name_required.text = element.name + ": x5"
-            element_image_required.setImageResource(element.image)
-            element_name_upgrade.text = element.name + "\n" + element.requiredElementQuantity
-            element_image_upgrade.setImageResource(element.image)
+            elementNameUpgrade.text = element.name + ":" + element.requiredElementQuantity
+            elementImageUpgrade.setImageResource(element.image)
         }
 
         fun checkIfElementIsClicked(currentElement: SectionElement) {

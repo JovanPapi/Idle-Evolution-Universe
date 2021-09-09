@@ -40,9 +40,9 @@ class EnergyIncreaseService : Service() {
     inner class TimeDisplay : TimerTask() {
         override fun run() {
             energyHandler.post {
-                var tempEnergy = Integer.parseInt(MainActivity.tvUserCurrentEnergy?.text.toString())
+                var tempEnergy = MainActivity.tvUserCurrentEnergy?.text.toString().replace(",", "").toInt()
                 tempEnergy += MainActivity.userCurrentEnergyProduction
-                MainActivity.tvUserCurrentEnergy?.text = tempEnergy.toString()
+                MainActivity.tvUserCurrentEnergy?.text = String.format("%,d", tempEnergy.toString().toInt())
             }
         }
     }

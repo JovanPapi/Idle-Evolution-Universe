@@ -59,11 +59,11 @@ class ElementPopupFragment : Fragment() {
                         element =
                             snapshot.child(elementDbKey).getValue(SectionElement::class.java)!!
                         imageView?.setImageResource(element.image)
-                        costTv?.text = "Cost: " + element.currentCostUpgrade
+                        costTv?.text = "Cost: " + String.format("%,d", element.currentCostUpgrade)
                         descriptionTV?.text = "Description: " + element.description
-                        totalTV?.text = "Total: " + element.totalProductionAfterUpgrade + "/s"
+                        totalTV?.text = "Total: " + String.format("%,d", element.totalProductionAfterUpgrade) + "/s"
                         increaseTV?.text =
-                            "Increase: " + element.energyProductionIncreaseAfterUpgrade + "/s"
+                            "Increase: " + String.format("%,d", element.energyProductionIncreaseAfterUpgrade) + "/s"
                     }
                 }
 
@@ -81,8 +81,7 @@ class ElementPopupFragment : Fragment() {
             )
         }
         btnUpgradeElement?.setOnClickListener {
-            val currentEnergyAmount =
-                Integer.parseInt(MainActivity.tvUserCurrentEnergy?.text.toString())
+            val currentEnergyAmount = MainActivity.tvUserCurrentEnergy?.text.toString().replace(",", "").toInt()
             if (currentEnergyAmount < element.currentCostUpgrade) {
                 Toast.makeText(context, "Not enough energy!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -107,8 +106,7 @@ class ElementPopupFragment : Fragment() {
 
                 sectionRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        var energyProduction =
-                            Integer.parseInt(snapshot.child("energyProduction").value.toString())
+                        var energyProduction = snapshot.child("energyProduction").value.toString().toInt()
                         energyProduction += element.energyProductionIncreaseAfterUpgrade
                         sectionRef.child("energyProduction").setValue(energyProduction)
                     }

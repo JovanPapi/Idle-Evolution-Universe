@@ -1,72 +1,128 @@
 package com.example.idleevolution_universe.ui.upgrade_element
 
-import android.app.Activity
-import android.app.Application
-import android.content.ContentProvider
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idleevolution_universe.R
-import com.example.idleevolution_universe.entity_model.Section
-import com.example.idleevolution_universe.entity_model.SectionData
-import com.example.idleevolution_universe.entity_model.SectionElements
+import com.example.idleevolution_universe.entity_model.SectionElement
 import com.example.idleevolution_universe.ui.adapter.UpgradeElementAdapter
-import com.example.idleevolution_universe.ui.adapter.UpgradeElementHomeAdapter
-import com.example.idleevolution_universe.ui.home.HomeFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class UpgradesFragment : Fragment() {
+
+    private val dbRef = FirebaseDatabase.getInstance().reference
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ):
-            View? {
+    ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_upgrades_home_view, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_upgrades, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler_view: RecyclerView =
-            view.findViewById(R.id.fragment_upgrades_home_recyclerView)
+        val quantumRef = FirebaseDatabase.getInstance().reference.child("quantum")
+        val nanoRef = FirebaseDatabase.getInstance().reference.child("nano")
+        val complexRef = FirebaseDatabase.getInstance().reference.child("complex")
+
+        val recyclerView: RecyclerView = view.findViewById(R.id.upgrades_recyclerView)
+        // Pass anonymous object of type 'ElementClicked' interface with overridden function ()
+        val upgradeSectionElementsAdapter =
+            UpgradeElementAdapter(object : ElementClickedListenerInterface {
+                override fun upgradeClickedElement(curr_element: SectionElement) {
+                    if (curr_element.requiredElementQuantity > curr_element.productionPow) {
+                        val tempNumber =
+                            curr_element.requiredElementQuantity - curr_element.productionPow
+                        Toast.makeText(
+                            context,
+                            "Lacking $tempNumber to ugprade ${curr_element.name}.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                    }
+                    val prevEnergyPerSec = curr_element.energyProductionPerSecond
+                    curr_element.energyProductionPerSecond *= 5
+                    curr_element.checkIfElementIsUpgraded = true
+
+                    if (curr_element.section == "quantum") {
+                        quantumRef.child(curr_element.dbKey).setValue(curr_element)
+                    } else if (curr_element.section == "complex") {
+                        complexRef.child(curr_element.dbKey).setValue(curr_element)
+                    } else {
+                        nanoRef.child(curr_element.dbKey).setValue(curr_element)
+                    }
 
 
-        // Take only the visible sections, because the adapter creates button for every section ->
-        // -> even though those sections are hidden. It lists all items.
-        val result_list_section = SectionData.sections.subList(0, 3)
+                    dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var energyProduction =
+                                Integer.parseInt(snapshot.child("energyProduction").value.toString())
+                            energyProduction += (curr_element.energyProductionPerSecond - prevEnergyPerSec)
+                            dbRef.child("energyProduction").setValue(energyProduction)
+                        }
 
-        // Send an object to the adapter that reference to the interface below, and override ->
-        // -> the function to access the next fragment
-        val upgrade_section_adapter =
-            UpgradeElementHomeAdapter(result_list_section, object : OpenUpgradeSectionListener {
-                override fun openUpgradeSection(curr_section: Section) {
-                    val bundle = Bundle()
-                    bundle.putString("section_name", curr_section.name)
-                    findNavController().navigate(
-                        R.id.action_navigation_upgrades_to_showUpgradeSectionElementsFragment,
-                        bundle
-                    )
+                        override fun onCancelled(error: DatabaseError) {
+                            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! UNFINISHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Toast.makeText(context, "Element Upgraded Successfully", Toast.LENGTH_SHORT)
+                        .show()
                 }
             })
 
-        upgrade_section_adapter.notifyDataSetChanged()
-        recycler_view.adapter = upgrade_section_adapter
+        // Access the database and list the elements from selected section each time we open this fragment
 
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val result = mutableListOf<SectionElement>()
+                for (item: DataSnapshot in snapshot.children) {
+                    if (item.hasChildren()) {
+                        for (element: DataSnapshot in item.children.reversed()) {
+                            val currElement: SectionElement? =
+                                element.getValue(SectionElement::class.java)
+                            if (currElement != null && currElement.checkIfElementIsUpgraded == false) {
+                                currElement.dbKey = element.key.toString()
+                                result.add(currElement)
+                            }
+                        }
+                    }
+                }
+                upgradeSectionElementsAdapter.submitList(result.asReversed())
+                upgradeSectionElementsAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        recyclerView.adapter = upgradeSectionElementsAdapter
 
     }
 
-    // Bridge between the fragment and adapter
-    interface OpenUpgradeSectionListener {
-        fun openUpgradeSection(curr_section: Section)
+    interface ElementClickedListenerInterface {
+        fun upgradeClickedElement(curr_element: SectionElement)
     }
 }

@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
     private val quantumRef = FirebaseDatabase.getInstance().reference.child("quantum")
@@ -94,9 +95,9 @@ class MainActivity : AppCompatActivity() {
         userTotalEnergyRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!snapshot.exists()) {
-                    userTotalEnergyRef.setValue(15)
+                    userTotalEnergyRef.setValue(100000)
                 } else {
-                    tvUserCurrentEnergy?.text = snapshot.value.toString()
+                    tvUserCurrentEnergy?.text = String.format("%,d", snapshot.value.toString().toInt())
                 }
             }
 

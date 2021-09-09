@@ -4,16 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.upgrade_element.ShowUpgradeSectionElementsFragment">
-
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:contentDescription="@string/section_image"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        app:layout_constraintBottom_toTopOf="@id/upgrades_recyclerView"
-        app:layout_constraintEnd_toEndOf="parent" />
+    tools:context=".ui.upgrade_element.UpgradesFragment"
+    android:layout_marginTop="30dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upgrades_recyclerView"
