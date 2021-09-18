@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="Bonus Income:"
                 android:textAlignment="center"
-                android:textColor="#FFFF00"
+                android:textColor="#00FF00"
                 android:textSize="17sp" />
 
             <TextView

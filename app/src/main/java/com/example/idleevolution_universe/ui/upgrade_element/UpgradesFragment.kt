@@ -54,6 +54,7 @@ class UpgradesFragment : Fragment() {
                     }
                     val prevEnergyPerSec = curr_element.energyProductionPerSecond
                     curr_element.energyProductionPerSecond *= 5
+                    curr_element.totalProductionAfterUpgrade *= 5
                     curr_element.checkIfElementIsUpgraded = true
 
                     if (curr_element.section == "quantum") {

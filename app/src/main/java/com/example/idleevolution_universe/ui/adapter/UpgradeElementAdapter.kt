@@ -29,7 +29,7 @@ class UpgradeElementAdapter(private val event_listener: UpgradesFragment.Element
 
 
         fun setData(element: SectionElement) {
-            elementNameUpgrade.text = element.name + ":" + element.requiredElementQuantity
+            elementNameUpgrade.text = element.name + ": " + element.requiredElementQuantity
             elementImageUpgrade.setImageResource(element.image)
         }
 
